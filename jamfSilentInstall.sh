@@ -64,7 +64,7 @@ fi
 #backblaze_installer="$(which $backblaze_installer)" # grab the full address
 #echo "backblaze_installer: $backblaze_installer"
 
-backblaze_installer="/Applications/Backblaze\ Installer.app/Contents/MacOS/bzinstall_mate"
+backblaze_installer="/Applications/Backblaze Installer.app/Contents/MacOS/bzinstall_mate"
 
 if ! [[ -e "$backblaze_installer" ]]
 then
@@ -91,7 +91,7 @@ echo "RUNNING COMMAND: [ $backblaze_installer -nogui -createaccount $emailAddr n
 
 #for historical reasons, the backblaze installer sends a success/error msg to stdout.
 
-textReturn="$($backblaze_installer -nogui -createaccount $emailAddr none  $backblaze_grpID $backblaze_grpToken)"
+textReturn=$("$backblaze_installer" -nogui -createaccount $emailAddr none  $backblaze_grpID $backblaze_grpToken)
 
 bbinstReturn="$?"
 
@@ -107,7 +107,7 @@ then
 else
 	echo "Succeeded running Backblaze silent installer"
     	#echo "Success $bbinstReturn running [ $backblaze_installer ] as [ $textReturn ]"
-    	installerReturn = 0
+    	installerReturn=0
 fi
 
 exit $installerReturn
