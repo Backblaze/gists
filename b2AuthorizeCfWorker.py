@@ -97,7 +97,7 @@ cfHeaders = { 'X-Auth-Email' : cloudflareEmail,
 
 cfUrl = 'https://api.cloudflare.com/client/v4/zones/' + cfZoneId + "/workers/script"
 
-#resp = requests.put(cfUrl, headers=cfHeaders, data=workerCode)
+resp = requests.put(cfUrl, headers=cfHeaders, data=workerCode)
 
 if flagDebug:
     print(resp)
