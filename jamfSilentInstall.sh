@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #These are for debugging and should be turned off; there is better
 #   error checking in the script which gather information after an
