@@ -64,12 +64,19 @@ fi
 #backblaze_installer="$(which $backblaze_installer)" # grab the full address
 #echo "backblaze_installer: $backblaze_installer"
 
-backblaze_installer="/Applications/Backblaze Installer.app/Contents/MacOS/bzinstall_mate"
+#downloading the installer to the host machine
+curl -0 https://secure.backblaze.com/mac/install_backblaze.dmg
+#mounting the dmg 
+hdiutil attach -quiet install_backblaze.dmg
 
+# backblaze_installer="/Applications/Backblaze Installer.app/Contents/MacOS/bzinstall_mate"
+backblaze_installer="/Volumes/Backblaze Installer/Backblaze Installer.app/Contents/MacOS/bzinstall_mate"
 if ! [[ -e "$backblaze_installer" ]]
 then
 	echo "ERROR: file $backblaze_installer does not exist or is missing!"
 	debugInfo
+	diskutil unmount /Volumes/Backblaze\ Installer
+	rm install_backblaze.dmg
 	exit -10
 else
 	if  ! [[  -r "$backblaze_installer" ]]
@@ -80,6 +87,8 @@ else
 	then
 		echo "ERROR: user lacks execute permission for file $backblaze_installer "
 		debugInfo
+		diskutil unmount /Volumes/Backblaze\ Installer
+		rm install_backblaze.dmg
 		exit -11
 	fi
 fi
@@ -110,4 +119,6 @@ else
     	installerReturn=0
 fi
 
+diskutil unmount /Volumes/Backblaze\ Installer
+rm install_backblaze.dmg
 exit $installerReturn
