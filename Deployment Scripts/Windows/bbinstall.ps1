@@ -15,10 +15,10 @@
 <# Please enter values related to your install below #>
 [CmdletBinding(PositionalBinding=$false)]
 
-param( [string]$groupID = "70256",
-    [string]$groupToken = "f6pvuic5c7crb9ce6b9nw5z6t6",
+param( [string]$groupID = "",
+    [string]$groupToken = "",
     [string]$userEmail = "",
-    [string]$password = "test1234",
+    [string]$password = "",
     [string]$csvMapfile,
     [string]$emailHeader = "Email",
     [string]$hostHeader = "Hostname",
