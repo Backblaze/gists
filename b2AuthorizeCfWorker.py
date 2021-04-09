@@ -1,19 +1,19 @@
-
 import requests
 import base64
 import json
 
 flagDebug = True
 
-cloudflareEmail = 'fearlessleader@pottsylvania.gov'
 bucketSourceId = 'cdb0bd378798e11f6427041b'
 bucketFilenamePrefix = ''
-cfZoneId = '625b68ff559a2fa5247c9c51e3c6374d'
-cfAppKey = 'c641673a3ae68de751172aab8805a3579eca6'
-# the preceding 'b' causes these to be treated as binary data
 # for b64 encoding.
 b2AppKey = b'K000uBzMpPUsL0zM32R9MEgpU9yT4IoQ'
 b2AppKeyId = b'000d0da781f4e4b0000000033'
+
+# Cloudflare settings
+cfAccountId = '379de8739ad820309deed3244553423534532' # Your Cloudflare Account ID
+cfWorkerApi = 'c641673a3ae68de751172aab8805a3579eca6' # The API key to modify the below worker
+cfWorkerName = 'b2cdn' # worker script name
 
 # An authorization token is valid for not more than 1 week
 # This sets it to the maximum time value
@@ -23,8 +23,6 @@ maxSecondsAuthValid = 7*24*60*60 # one week in seconds
 
 baseAuthorizationUrl = 'https://api.backblazeb2.com/b2api/v2/b2_authorize_account'
 b2GetDownloadAuthApi = '/b2api/v2/b2_get_download_authorization'
-
-cfUploadWWUrl = "https://api.cloudflare.com/client/v4/zones/" + cfZoneId + "/workers/script"
 
 # Get fundamental authorization code
 
@@ -39,7 +37,7 @@ if flagDebug:
     print (resp.headers)
     print (resp.content)
 
-respData = json.loads(resp.content)
+respData = json.loads(resp.content.decode("UTF-8"))
 
 bAuToken = respData["authorizationToken"]
 bFileDownloadUrl = respData["downloadUrl"]
@@ -57,8 +55,8 @@ resp2 = requests.post(getDownloadAuthorizationUrl,
                               'validDurationInSeconds' : maxSecondsAuthValid },
                       headers=downloadAuthorizationHeaders )
 
-resp2Data = json.loads(resp2.content)
-
+resp2Content = resp2.content.decode("UTF-8")
+resp2Data = json.loads(resp2Content)
 
 bDownAuToken = resp2Data["authorizationToken"]
 
@@ -85,17 +83,10 @@ return response
 
 workerCode = workerTemplate.replace('<B2_DOWNLOAD_TOKEN>', bDownAuToken)
 
-
-#Can now update the web worker
-#curl -X PUT "https://api.cloudflare.com/client/v4/zones/:zone_id/workers/script" -H
-#"X-Auth-Email:YOUR_CLOUDFLARE_EMAIL" -H "X-Auth-Key:ACCOUNT_AUTH_KEY" -H
-#"Content-Type:application/javascript" --data-binary "@PATH_TO_YOUR_WORKER_SCRIPT"
-
-cfHeaders = { 'X-Auth-Email' : cloudflareEmail,
-              'X-Auth-Key' : cfAppKey,
+cfHeaders = { 'Authorization' : "Bearer " + cfWorkerApi,
               'Content-Type' : 'application/javascript' }
 
-cfUrl = 'https://api.cloudflare.com/client/v4/zones/' + cfZoneId + "/workers/script"
+cfUrl = 'https://api.cloudflare.com/client/v4/accounts/' + cfAccountId + "/workers/scripts/" + cfWorkerName
 
 resp = requests.put(cfUrl, headers=cfHeaders, data=workerCode)
 
