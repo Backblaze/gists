@@ -50,17 +50,17 @@ function runUpdate {
 }
 
 function installBackblaze {
-    $installCommand = "msiexec.exe /i install_backblazemsi.msi /l*vx! $BACKBLAZE_LOG_DIR BZEMAIL=$userEmail BZGROUPID=$groupID BZGROUPTOKEN=$groupToken"
+    $installCommand = "msiexec.exe /i install_backblazemsi.msi /quiet /l*vx! $BACKBLAZE_LOG_DIR BZEMAIL=$userEmail BZGROUPID=$groupID BZGROUPTOKEN=$groupToken"
     Invoke-Expression $installCommand
 }
 
 function installADBackblaze {
-    $installADCommand = "msiexec.exe /i install_backblazemsi.msi /l*vx! $BACKBLAZE_LOG_DIR BZGROUPID=$groupID BZGROUPTOKEN=$groupToken"
+    $installADCommand = "msiexec.exe /i install_backblazemsi.msi /quiet /l*vx! $BACKBLAZE_LOG_DIR BZGROUPID=$groupID BZGROUPTOKEN=$groupToken"
     Invoke-Expression $installADCommand
 }
 
 function uninstallBackblaze {
-    $uninstallCommand = "msiexec.exe /uninstall install_backblazemsi.msi"
+    $uninstallCommand = "msiexec.exe /uninstall install_backblazemsi.msi /quiet"
     Invoke-Expression $uninstallCommand
     exit
 }
