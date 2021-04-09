@@ -3,7 +3,7 @@ param(
     [string] $groupToken = "",
     [string] $userEmail = "",
     [string] $workingDirectory,
-    [switch] $uninstall = $false
+    [string] $uninstall = "false"
 )
 
 #Create log if it doesnt already exist
@@ -70,8 +70,9 @@ function uninstallBackblaze {
 #Update Check
 
 #Uninstall Check
-if ( $uninstall ) {
+if ( $uninstall -eq "true") {
     uninstallBackblaze
+    exit
 }
 
 #Set installer filename
