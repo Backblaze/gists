@@ -31,7 +31,7 @@ function global:echoOutput {
 
 function MyThrow {
     param( [string]$throwMessage )
-    MyOutput $throwMessage
+    echoOutput $throwMessage
     Throw $throwMessage
 }
 
