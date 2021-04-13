@@ -10,7 +10,7 @@ password="$7"
 JAMF_domain="$8"
 
 # The script needs access to the JAMF Pro API to gather related the related email for a given user
-# Account just needs to have Users - Read permissions
+# Account just needs to have Users - Read permissions OR Computers - Read permissions if using the alternative serial number method
 # You can configure a temp account for this in the "Jamf Pro User Accounts & Groups" section of your console
 JAMF_username="$9"
 JAMF_password="${10}"
@@ -46,6 +46,8 @@ function jamfAPI {
 	echo "Making GET request to Classic JAMF API"
 	response=$(curl -s "https://$JAMF_domain.jamfcloud.com/JSSResource/users/name/$username" -u "$JAMF_username:$JAMF_password")
 	# Here is an alternative method of looking up email addresses if your LDAP users don't match your local user accounts.
+	# If using this alternative method, ensure your JAMF user account has Computers - Read access
+	#
 	# serial=$(ioreg -l |awk '/IOPlatformSerialNumber/ { print $4; }'|sed s/\"//g)
 	# response=$(curl "https://$JAMF_fqdn/JSSResource/computers/serialnumber/$serial" --user "$JAMF_username":"$JAMF_password" -H "Accept: application/xml")
 	email=$(echo $response | /usr/bin/awk -F'<email_address>|</email_address>' '{print $2}')
