@@ -10,8 +10,8 @@ email="$6" #If email is entered in parameters, script will skip over using JAMF 
 region="$7" #Specify if account is to be deployed in specific region [us-west or eu-central]
 JAMF_domain="$8"
 
-# The script needs access to the JAMF Pro API to gather related the related email for a given user 
-# Account just needs to have Users - Read permissions
+# The script needs access to the JAMF Pro API to gather related the related email for a given user
+# Account just needs to have Users - Read permissions OR Computers - Read permissions if using the alternative serial number method
 # You can configure a temp account for this in the "Jamf Pro User Accounts & Groups" section of your console
 JAMF_username="$9"
 JAMF_password="${10}"
@@ -59,7 +59,11 @@ function emailValidation {
 function jamfAPIUsername {
 	echo "Making GET request to Classic JAMF API using Username"
 	response=$(curl -s "https://$JAMF_domain.jamfcloud.com/JSSResource/users/name/$username" -u "$JAMF_username:$JAMF_password")
-
+	# Here is an alternative method of looking up email addresses if your LDAP users don't match your local user accounts.
+	# If using this alternative method, ensure your JAMF user account has Computers - Read access
+	#
+	# serial=$(ioreg -l |awk '/IOPlatformSerialNumber/ { print $4; }'|sed s/\"//g)
+	# response=$(curl "https://$JAMF_fqdn/JSSResource/computers/serialnumber/$serial" --user "$JAMF_username":"$JAMF_password" -H "Accept: application/xml")
 	email=$(echo $response | /usr/bin/awk -F'<email_address>|</email_address>' '{print $2}')
 	emailValidation
 }
@@ -94,8 +98,8 @@ function killSyspref {
 }
 
 function setDirectory {
-	if [ -n "$3" ] 
-	then 
+	if [ -n "$3" ]
+	then
 		cd /Users/"$3" || { echo "Failed to cd to user directory"; exit 1; }
 	fi
 }
@@ -107,7 +111,7 @@ function downloadBackblaze {
 
 function mountBackblaze {
 	echo "Mounting Installer..."
-	hdiutil attach -quiet -nobrowse install_backblaze.dmg 
+	hdiutil attach -quiet -nobrowse install_backblaze.dmg
 }
 ###################################################
 
@@ -118,8 +122,8 @@ mountBackblaze
 #Kill System Preferences process to prevent related BZERROR
 killSyspref
 
-#Check to see if Backblaze is installed already, if so update it. Else continue as planned. 
-if open -Ra "Backblaze" ; 
+#Check to see if Backblaze is installed already, if so update it. Else continue as planned.
+if open -Ra "Backblaze" ;
 	then
   		echo "Backblaze already installed, attempting to update"
 		updateBackblaze
