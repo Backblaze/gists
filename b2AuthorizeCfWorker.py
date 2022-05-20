@@ -4,15 +4,16 @@ import json
 
 flagDebug = True
 
-bucketSourceId = 'cdb0bd378798e11f6427041b'
+bucketSourceId = ''
 bucketFilenamePrefix = ''
 # for b64 encoding.
-b2AppKey = b'K000uBzMpPUsL0zM32R9MEgpU9yT4IoQ'
-b2AppKeyId = b'000d0da781f4e4b0000000033'
+b2AppKey = b'' # Your b2 Application key
+b2AppKeyId = b'' # Your b2 Application key ID
 
 # Cloudflare settings
-cfAccountId = '379de8739ad820309deed3244553423534532' # Your Cloudflare Account ID
-cfWorkerApi = 'c641673a3ae68de751172aab8805a3579eca6' # The API key to modify the below worker
+cfAccountEmail = ''
+cfAccountId = '' # Your Cloudflare Account ID
+cfWorkerApi = '' # The API key to modify the below worker
 cfWorkerName = 'b2cdn' # worker script name
 
 # An authorization token is valid for not more than 1 week
@@ -83,14 +84,16 @@ return response
 
 workerCode = workerTemplate.replace('<B2_DOWNLOAD_TOKEN>', bDownAuToken)
 
-cfHeaders = { 'Authorization' : "Bearer " + cfWorkerApi,
-              'Content-Type' : 'application/javascript' }
+cfHeaders = { 'X-Auth-Email' : cfAccountEmail,
+              'X-Auth-Key' : cfWorkerApi,
+              'Content-Type': 'application/javascript' }
 
 cfUrl = 'https://api.cloudflare.com/client/v4/accounts/' + cfAccountId + "/workers/scripts/" + cfWorkerName
 
 resp = requests.put(cfUrl, headers=cfHeaders, data=workerCode)
 
 if flagDebug:
+    print(cfUrl)
     print(resp)
     print(resp.headers)
     print(resp.content)
