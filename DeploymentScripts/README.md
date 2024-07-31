@@ -3,6 +3,7 @@
 This is a repository for our up to date silent deployment scripts for Mac and PC
 
 ## TODO
+Kandji Script not fully tested, may be lacking functionality. Please send feedback or suggestions. 
 Add proper error reporting for powershell script
 
 ## Contributing
