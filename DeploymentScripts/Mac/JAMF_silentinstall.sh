@@ -1,5 +1,8 @@
 #!/bin/bash
 
+##### THIS SCRIPT IS NOW DEPRECATED AS JAMF HAS SUNSETTED THE CLASSIC API #####
+
+
 # The following parameters are pulled directly from the "Parameter Values" section of your Backblaze deployment policy.
 # Please make sure they are filled out respectively prior to your push
 computername="$2"
