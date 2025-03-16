@@ -16,7 +16,7 @@ region="" # Specify if account is to be deployed in specific region [us-west or 
 ################ FUNCTIONS #########################
 
 function update_backblaze {
-	return=$(sudo /Volumes/Backblaze\ Installer/Backblaze\ Installer.app/Contents/MacOS/bzinstall_mate -upgrade bzdiy)
+	return=$(sudo /Volumes/Backblaze\ Installer/Backblaze\ Installer.app/Contents/MacOS/bzinstall_mate --silentUpgrade)
 }
 
 function signin_backblaze {
