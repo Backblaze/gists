@@ -34,7 +34,7 @@ device_id=""
 ################ FUNCTIONS #########################
 
 function update_backblaze {
-	return=$(sudo /Volumes/Backblaze\ Installer/Backblaze\ Installer.app/Contents/MacOS/bzinstall_mate -upgrade bzdiy)
+	return=$(sudo /Volumes/Backblaze\ Installer/Backblaze\ Installer.app/Contents/MacOS/bzinstall_mate --silentUpgrade)
 }
 
 function signin_backblaze {
