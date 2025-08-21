@@ -17,8 +17,6 @@ kandji_domain="<kandji_domain>.api.kandji.io"
 # https://support.kandji.io/support/solutions/articles/72000560412-kandji-api
 api_token=""
 
-# Set the path to the Kandji plist
-kandji_plist="/Library/Application Support/Kandji/Managed/com.kandji.agent.plist"
 
 # Set the region to deploy to, true for EU, false for US
 eu=false
@@ -26,7 +24,7 @@ eu=false
 # Will be set by the get_device_id function
 device_id=""
 
-# BZERROR MEANINGS 
+# BZERROR MEANINGS
 # BZERROR:190 - The System Preferences process is running on the computer. Close System Preferences and retry the installation.
 # BZERROR:1000 - This is a general error code. One possible reason is that the Backblaze installer doesn't have root permissions and is failing. Please see the install log file for more details.
 # BZERROR:1016/1003 - Login Error... Email account exists but is not a member of indicated Group, Group ID is incorrect, or Group token is incorrect,
@@ -50,8 +48,8 @@ function email_validation {
 	rc=$?
 	if [ "$rc" != "0" ]; then
 		echo "Failed to retrieve valid email address from Kandji API. Parsed Email: [ $email ]"
-		echo "Please make sure Kandji credentials have READ access on the user object and endpoints have emails properly set" 
-		exit 1
+		echo "Please make sure Kandji credentials have READ access on the user object and endpoints have emails properly set"
+		failure_exit
 	else
 		echo "The email retrieved from Kandji API [ $email ] seems to be a valid email address"
 		echo "Continuing with install"
@@ -59,19 +57,9 @@ function email_validation {
 }
 
 function get_device_id {
-    #Check if Kandji plist exists, if so pull device id from it
-    if [ -f "$kandji_plist" ]; then
-        # Use the full path to the defaults command to read the Kandji Device ID from the plist
-        device_id=$(/usr/bin/defaults read "$kandji_plist" device_id 2>/dev/null)
-        
-        # Check if the Device ID was found
-        if [ -n "$device_id" ]; then
-            echo "Kandji Device ID: $device_id"
-        else
-            echo "Kandji Device ID not found in plist."
-        fi
-    else
-        echo "Kandji plist not found, thus no device id available, exiting"
+    device_id=$(defaults read /Library/Preferences/io.kandji.Kandji ComputerURL | cut -d '/' -f 5)
+    if [ ! -f /Library/Preferences/io.kandji.Kandji ]; then
+        echo "Kandji config file not found, please verify target computer has a kandji config file, if located elsewhere you can change path in line 61.  Exiting."
         failure_exit
     fi
 }
@@ -96,19 +84,41 @@ function kandji_get_device_email {
 }
 
 function success_exit {
-	echo "Unmounting Installer..."
-	diskutil unmount /Volumes/Backblaze\ Installer
-	echo "Cleaning up..."
-	rm install_backblaze.dmg
-	exit 0
+    echo "Unmounting Installer..."
+    hdiutil detach "/Volumes/Backblaze Installer" -force 2>/dev/null
+    if [ $? -eq 0 ]; then
+        echo "Successfully unmounted Backblaze Installer."
+    elif [ $? -ne 0 ]; then
+        echo "Warning: Failed to unmount /Volumes/Backblaze Installer. It may not have been mounted."
+    fi
+
+    echo "Cleaning up..."
+    rm -f install_backblaze.dmg
+    if [ $? -ne 0 ]; then #Very unlikely to fail, but still good practice
+        echo "Warning: Couldnt remove dmg file"
+    fi
+
+    echo "Backblaze installation successful."
+    exit 0
 }
 
 function failure_exit {
-	echo "Unmounting Installer..."
-	diskutil unmount /Volumes/Backblaze\ Installer
-	echo "Cleaning up..."
-	rm install_backblaze.dmg
-	exit 1
+    echo "Unmounting Installer..."
+    hdiutil detach "/Volumes/Backblaze Installer" -force 2>/dev/null
+    if [ $? -eq 0 ]; then
+        echo "Successfully unmounted Backblaze Installer."
+    elif [ $? -ne 0 ]; then
+        echo "Warning: Failed to unmount /Volumes/Backblaze Installer. It may not have been mounted."
+    fi
+
+    echo "Cleaning up..."
+    rm -f install_backblaze.dmg
+    if [ $? -ne 0 ]; then
+        echo "Warning: Couldnt remove dmg file"
+    fi
+
+    echo "Backblaze installation failed."
+    exit 1
 }
 
 function kill_syspref {
@@ -125,13 +135,29 @@ function download_backblaze {
 }
 
 function mount_backblaze {
+
 	echo "Mounting Installer..."
-	hdiutil attach -quiet -nobrowse install_backblaze.dmg 
+	hdiutil attach -quiet -nobrowse install_backblaze.dmg
+
+    if [ $? -ne 0 ]; then
+        echo "ERROR: Failed to mount install_backblaze.dmg"
+        exit 1
+    fi
+
+    echo "install_backblaze.dmg mounted successfully."
 }
+
+#Function to unmount all mounted DMGs just in case previous mounts were not unmounted
+function unmount_backblaze {
+    echo "Unmounting Backblaze Installer..."
+    hdiutil detach "/Volumes/Backblaze Installer" -force 2>/dev/null
+}
+
 ###################################################
 
 set_directory "$@"
 download_backblaze
+unmount_backblaze
 mount_backblaze
 get_device_id
 set_kandji_domain
@@ -139,7 +165,7 @@ set_kandji_domain
 #Kill System Preferences process to prevent related BZERROR
 kill_syspref
 
-#Check to see if Backblaze is installed already, if so update it. Else continue as planned. 
+#Check to see if Backblaze is installed already, if so update it. Else continue as planned.
 if open -Ra "Backblaze" ; then
 	echo "Backblaze already installed, attempting to update"
 	update_backblaze
@@ -184,7 +210,7 @@ if [ "$region" == "" ]; then
 			failure_exit
 		fi
 	fi
-else 
+else
 	create_region_account
 	if [ "$return" == "BZERROR:1001" ]; then
 		echo "Backblaze account successfully created in $region, $email signed in..."
@@ -192,5 +218,5 @@ else
 	else
 		echo "Failed to install Backblaze, errorcode: $return"
 		failure_exit
-	fi	
+	fi
 fi

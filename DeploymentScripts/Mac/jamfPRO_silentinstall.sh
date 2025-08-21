@@ -14,7 +14,7 @@ region="$7" # Specify if account is to be deployed in specific region [us-west o
 
 ############### JAMF Variables ####################
 
-# The script needs access to the JAMF Pro API to gather the related email for a given user 
+# The script needs access to the JAMF Pro API to gather the related email for a given user
 # Account just needs to have Users - Read permissions
 # You can configure a temp account for this in the "Jamf Pro User Accounts & Groups" section of your console
 computer_name="$2"
@@ -53,8 +53,8 @@ function email_validation {
 	if [ "$rc" != "0" ]; then
 		if [ "$email_retrieved_from_computer_name" = true ]; then
 			echo "Failed to retrieve valid email address from JAMF API. Parsed Email: [ $email ]"
-			echo "Please make sure JAMF credentials have READ access on the user object and endpoints have emails properly set" 
-			exit 1
+			echo "Please make sure JAMF credentials have READ access on the user object and endpoints have emails properly set"
+			failure_exit
 		else
 			echo "Failed to retrieve valid email address from JAMF API. Attempting to use computer name"
 			jamf_api_computer_name
@@ -96,19 +96,41 @@ function jamf_api_computer_name {
 }
 
 function success_exit {
-	echo "Unmounting Installer..."
-	diskutil unmount /Volumes/Backblaze\ Installer
-	echo "Cleaning up..."
-	rm install_backblaze.dmg
-	exit 0
+    echo "Unmounting Installer..."
+    hdiutil detach "/Volumes/Backblaze Installer" -force 2>/dev/null
+    if [ $? -eq 0 ]; then
+        echo "Successfully unmounted Backblaze Installer."
+    elif [ $? -ne 0 ]; then
+        echo "Warning: Failed to unmount /Volumes/Backblaze Installer. It may not have been mounted."
+    fi
+
+    echo "Cleaning up..."
+    rm -f install_backblaze.dmg
+    if [ $? -ne 0 ]; then #Very unlikely to fail, but still good practice
+        echo "Warning: Couldnt remove dmg file"
+    fi
+
+    echo "Backblaze installation successful."
+    exit 0
 }
 
 function failure_exit {
-	echo "Unmounting Installer..."
-	diskutil unmount /Volumes/Backblaze\ Installer
-	echo "Cleaning up..."
-	rm install_backblaze.dmg
-	exit 1
+    echo "Unmounting Installer..."
+    hdiutil detach "/Volumes/Backblaze Installer" -force 2>/dev/null
+    if [ $? -eq 0 ]; then
+        echo "Successfully unmounted Backblaze Installer."
+    elif [ $? -ne 0 ]; then
+        echo "Warning: Failed to unmount /Volumes/Backblaze Installer. It may not have been mounted."
+    fi
+
+    echo "Cleaning up..."
+    rm -f install_backblaze.dmg
+    if [ $? -ne 0 ]; then
+        echo "Warning: Couldnt remove dmg file"
+    fi
+
+    echo "Backblaze installation failed."
+    exit 1
 }
 
 function kill_syspref {
@@ -116,8 +138,8 @@ function kill_syspref {
 }
 
 function set_directory {
-	if [ -n "$3" ]; then 
-		cd /Users/"$3" || { echo "Failed to cd to user directory"; exit 1; }
+	if [ -n "$3" ]; then
+		cd /Users/"$3" || { echo "Failed to cd to user directory"; failure_exit; }
 	fi
 }
 
@@ -128,7 +150,7 @@ function download_backblaze {
 
 function mount_backblaze {
 	echo "Mounting Installer..."
-	hdiutil attach -quiet -nobrowse install_backblaze.dmg 
+	hdiutil attach -quiet -nobrowse install_backblaze.dmg
 }
 ###################################################
 
@@ -140,7 +162,7 @@ get_auth_token
 # Kill System Preferences process to prevent related BZERROR
 kill_syspref
 
-# Check to see if Backblaze is installed already, if so update it. Else continue as planned. 
+# Check to see if Backblaze is installed already, if so update it. Else continue as planned.
 if open -Ra "Backblaze" ; then
 	echo "Backblaze already installed, attempting to update"
 	update_backblaze
@@ -185,7 +207,7 @@ if [ "$region" == "" ]; then
 			failure_exit
 		fi
 	fi
-else 
+else
 	create_region_account
 	if [ "$return" == "BZERROR:1001" ]; then
 		echo "Backblaze account successfully created in $region, $email signed in..."
@@ -193,5 +215,5 @@ else
 	else
 		echo "Failed to install Backblaze, error code: $return"
 		failure_exit
-	fi	
+	fi
 fi
