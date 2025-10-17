@@ -7,12 +7,12 @@ flagDebug = True
 bucketSourceId = 'cdb0bd378798e11f6427041b'
 bucketFilenamePrefix = ''
 # for b64 encoding.
-b2AppKey = b'K000uBzMpPUsL0zM32R9MEgpU9yT4IoQ'
-b2AppKeyId = b'000d0da781f4e4b0000000033'
+b2AppKey = b'00000000000000000000000000000000'
+b2AppKeyId = b'0000000000000000000000000'
 
 # Cloudflare settings
-cfAccountId = '379de8739ad820309deed3244553423534532' # Your Cloudflare Account ID
-cfWorkerApi = 'c641673a3ae68de751172aab8805a3579eca6' # The API key to modify the below worker
+cfAccountId = '0000000000000000000000000000000000000' # Your Cloudflare Account ID
+cfWorkerApi = '0000000000000000000000000000000000000' # The API key to modify the below worker
 cfWorkerName = 'b2cdn' # worker script name
 
 # An authorization token is valid for not more than 1 week
