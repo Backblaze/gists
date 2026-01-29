@@ -1,0 +1,13 @@
+{
+  "applicationKey": "K0001ZMxZEop4JkYUJqEei1ZSep14zz",
+  "applicationKeyId": "00013cfc156072e0000000001",
+  "groupMember": {
+    "accountId": "13cfc156072e",
+    "clusterNum": "000",
+    "email": "new-group-member@mycompany.com",
+    "groupId": "YOUR_GROUP_ID",
+    "groupName": "My Group",
+    "region": "us-west",
+    "s3Endpoint": "s3.us-west-000.backblazeb2.com"
+  }
+}

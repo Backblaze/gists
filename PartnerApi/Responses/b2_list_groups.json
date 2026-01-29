@@ -1,0 +1,22 @@
+{
+  "accountId": "YOUR_ACCOUNT_ID",
+  "groups": [
+    {
+      "accountStandingDetails": {
+        "state": "B2_GOOD_STANDING"
+      },
+      "groupId": "YOUR_GROUP_ID",
+      "groupName": "My Group",
+      "groupProducts": [
+        "BACKUP",
+        "STORAGE"
+      ],
+      "groupStats": {
+        "createdTimestamp": "d20260114_m172133",
+        "groupStatsAsOfTimestamp": "d20260114_m205407",
+        "memberCount": 1
+      }
+    }
+  ],
+  "nextGroupId": null
+}

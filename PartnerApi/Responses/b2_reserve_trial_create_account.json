@@ -1,0 +1,11 @@
+{
+  "accountId": "ed4199fcd35a",
+  "applicationKey": "K0002E2BA4VC37ISDMZC5dG7+mSH6JM",
+  "applicationKeyId": "000ed4199fcd35a0000000001",
+  "bucketId": "7eed9411d929bfec9db3051a",
+  "bucketName": "b2-partner-backblaze-ed4199fcd35a",
+  "email": "new-b2-reserve-member@mycompany.com",
+  "endDate": "2026-01-21",
+  "s3Endpoint": "s3.us-west-000.backblazeb2.com",
+  "startDate": "2026-01-14"
+}
