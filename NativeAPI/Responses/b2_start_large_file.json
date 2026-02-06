@@ -1,0 +1,28 @@
+{
+  "accountId": "YOUR_ACCOUNT_ID",
+  "action": "start",
+  "bucketId": "YOUR_BUCKET_ID",
+  "contentLength": 0,
+  "contentMd5": null,
+  "contentSha1": "none",
+  "contentType": "text/plain",
+  "fileId": "4_zc1657f7923d53c0f94cd0c1b_f23219c432d6af490_d20260205_m234015_c004_v0402030_t0044_u01770334815781",
+  "fileInfo": {},
+  "fileName": "native-api-sample",
+  "fileRetention": {
+    "isClientAuthorizedToRead": true,
+    "value": {
+      "mode": null,
+      "retainUntilTimestamp": null
+    }
+  },
+  "legalHold": {
+    "isClientAuthorizedToRead": true,
+    "value": null
+  },
+  "serverSideEncryption": {
+    "algorithm": null,
+    "mode": null
+  },
+  "uploadTimestamp": 1770334815781
+}

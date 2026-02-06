@@ -1,0 +1,13 @@
+{
+  "accountId": "YOUR_ACCOUNT_ID",
+  "action": "hide",
+  "bucketId": "YOUR_BUCKET_ID",
+  "contentLength": 0,
+  "contentMd5": "d41d8cd98f00b204e9800998ecf8427e",
+  "contentSha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+  "contentType": "application/x-bz-hide-marker",
+  "fileId": "4_zc1657f7923d53c0f94cd0c1b_f449e93fcd76c3296_d20260205_m234015_c004_v7007000_t0000_u01770334815517",
+  "fileInfo": {},
+  "fileName": "typing_test.txt",
+  "uploadTimestamp": 1770334815517
+}

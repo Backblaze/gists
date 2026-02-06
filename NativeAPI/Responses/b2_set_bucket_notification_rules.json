@@ -1,0 +1,23 @@
+{
+  "bucketId": "YOUR_BUCKET_ID",
+  "eventNotificationRules": [
+    {
+      "eventTypes": [
+        "b2:ObjectCreated:MultipartUpload",
+        "b2:ObjectCreated:Upload"
+      ],
+      "isEnabled": true,
+      "isSuspended": false,
+      "name": "sample-rule",
+      "objectNamePrefix": "data",
+      "suspensionReason": "",
+      "targetConfiguration": {
+        "customHeaders": null,
+        "hmacSha256SigningSecret": null,
+        "maxEventsPerBatch": 1,
+        "targetType": "webhook",
+        "url": "https://www.example.com/webhook"
+      }
+    }
+  ]
+}
