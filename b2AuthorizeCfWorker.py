@@ -77,9 +77,37 @@ modRequest = new Request(request.url, {
     method: request.method,
     headers: b2Headers
 })
-const response = await fetch(modRequest)
-return response
-}"""
+let response
+let i = 3
+do {
+  response = await timeoutPromise(fetch(modRequest), 2000000)
+  if (response) {
+    return response
+  }
+  sleep(100000)
+} while (--i)
+}
+function timeoutPromise(promise, ms) {
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      reject(new Error("promise timeout"))
+    }, ms);
+    promise.then(
+      (res) => {
+        clearTimeout(timeoutId);
+        resolve(res);
+      },
+      (err) => {
+        clearTimeout(timeoutId);
+        reject(err);
+      }
+    );
+  })
+}
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+"""
 
 workerCode = workerTemplate.replace('<B2_DOWNLOAD_TOKEN>', bDownAuToken)
 
