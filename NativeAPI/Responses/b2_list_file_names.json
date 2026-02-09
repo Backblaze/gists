@@ -1,0 +1,61 @@
+{
+  "files": [
+    {
+      "accountId": "YOUR_ACCOUNT_ID",
+      "action": "upload",
+      "bucketId": "YOUR_BUCKET_ID",
+      "contentLength": 48,
+      "contentMd5": "dea3801551d8240fb5cd9f94d6868eb0",
+      "contentSha1": "973406ee1dc35b9b35e888ff50a9d8e13f10911c",
+      "contentType": "text/plain",
+      "fileId": "4_zc1657f7923d53c0f94cd0c1b_f405618dbe9f1f691_d20260205_m234012_c004_v0402033_t0052_u01770334812998",
+      "fileInfo": {},
+      "fileName": "typing_test.txt",
+      "fileRetention": {
+        "isClientAuthorizedToRead": true,
+        "value": {
+          "mode": null,
+          "retainUntilTimestamp": null
+        }
+      },
+      "legalHold": {
+        "isClientAuthorizedToRead": true,
+        "value": "off"
+      },
+      "serverSideEncryption": {
+        "algorithm": null,
+        "mode": null
+      },
+      "uploadTimestamp": 1770334812998
+    },
+    {
+      "accountId": "YOUR_ACCOUNT_ID",
+      "action": "upload",
+      "bucketId": "YOUR_BUCKET_ID",
+      "contentLength": 48,
+      "contentMd5": "dea3801551d8240fb5cd9f94d6868eb0",
+      "contentSha1": "973406ee1dc35b9b35e888ff50a9d8e13f10911c",
+      "contentType": "text/plain",
+      "fileId": "4_zc1657f7923d53c0f94cd0c1b_f11005e0156c5854a_d20260205_m234014_c004_v0402033_t0010_u01770334814898",
+      "fileInfo": {},
+      "fileName": "typing_test.txt.copy",
+      "fileRetention": {
+        "isClientAuthorizedToRead": true,
+        "value": {
+          "mode": null,
+          "retainUntilTimestamp": null
+        }
+      },
+      "legalHold": {
+        "isClientAuthorizedToRead": true,
+        "value": null
+      },
+      "serverSideEncryption": {
+        "algorithm": null,
+        "mode": null
+      },
+      "uploadTimestamp": 1770334814898
+    }
+  ],
+  "nextFileName": null
+}

@@ -1,0 +1,20 @@
+{
+  "accountId": "YOUR_ACCOUNT_ID",
+  "applicationKey": "APPLICATION_KEY",
+  "applicationKeyId": "APPLICATION_KEY_ID",
+  "bucketIds": [
+    "BUCKET_ID_1",
+    "BUCKET_ID_2"
+  ],
+  "capabilities": [
+    "readBuckets",
+    "listFiles",
+    "readFiles"
+  ],
+  "expirationTimestamp": 1770421227461,
+  "keyName": "sample-key",
+  "namePrefix": "data",
+  "options": [
+    "s3"
+  ]
+}

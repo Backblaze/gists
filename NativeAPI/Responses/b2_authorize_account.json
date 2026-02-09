@@ -1,0 +1,35 @@
+{
+  "accountId": "YOUR_ACCOUNT_ID",
+  "apiInfo": {
+    "storageApi": {
+      "absoluteMinimumPartSize": 5000000,
+      "allowed": {
+        "buckets": [
+          {
+            "id": "BUCKET_ID_1",
+            "name": "BUCKET_NAME_1"
+          },
+          {
+            "id": "BUCKET_ID_2",
+            "name": "BUCKET_NAME_2"
+          }
+        ],
+        "capabilities": [
+          "listBuckets",
+          "listFiles",
+          "readFiles",
+          "shareFiles",
+          "writeFiles",
+          "deleteFiles"
+        ],
+        "namePrefix": null
+      },
+      "apiUrl": "https://apiNNN.backblazeb2.com",
+      "downloadUrl": "https://fNNN.backblazeb2.com",
+      "recommendedPartSize": 100000000,
+      "s3ApiUrl": "https://s3.us-west-NNN.backblazeb2.com"
+    }
+  },
+  "applicationKeyExpirationTimestamp": null,
+  "authorizationToken": "4_00415f935cf4dcb00000006ae_01c23dcc_f57902_acct_Vl-OZdLppNjLalHFmfuaIHFgR1Q="
+}

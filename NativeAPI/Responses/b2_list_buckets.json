@@ -1,0 +1,146 @@
+{
+  "buckets": [
+    {
+      "accountId": "YOUR_ACCOUNT_ID",
+      "bucketId": "BUCKET_ID_1",
+      "bucketInfo": {},
+      "bucketName": "BUCKET_NAME_1",
+      "bucketType": "allPrivate",
+      "corsRules": [],
+      "defaultServerSideEncryption": {
+        "isClientAuthorizedToRead": true,
+        "value": {
+          "algorithm": null,
+          "mode": null
+        }
+      },
+      "fileLockConfiguration": {
+        "isClientAuthorizedToRead": true,
+        "value": {
+          "defaultRetention": {
+            "mode": null,
+            "period": null
+          },
+          "isFileLockEnabled": false
+        }
+      },
+      "lifecycleRules": [],
+      "options": [
+        "s3"
+      ],
+      "replicationConfiguration": {
+        "isClientAuthorizedToRead": true,
+        "value": null
+      },
+      "revision": 2
+    },
+    {
+      "accountId": "YOUR_ACCOUNT_ID",
+      "bucketId": "BUCKET_ID_2",
+      "bucketInfo": {},
+      "bucketName": "BUCKET_NAME_2",
+      "bucketType": "allPublic",
+      "corsRules": [],
+      "defaultServerSideEncryption": {
+        "isClientAuthorizedToRead": true,
+        "value": {
+          "algorithm": null,
+          "mode": null
+        }
+      },
+      "fileLockConfiguration": {
+        "isClientAuthorizedToRead": true,
+        "value": {
+          "defaultRetention": {
+            "mode": null,
+            "period": null
+          },
+          "isFileLockEnabled": false
+        }
+      },
+      "lifecycleRules": [],
+      "options": [
+        "s3"
+      ],
+      "replicationConfiguration": {
+        "isClientAuthorizedToRead": true,
+        "value": null
+      },
+      "revision": 2
+    },
+    {
+      "accountId": "YOUR_ACCOUNT_ID",
+      "bucketId": "BUCKET_ID_3",
+      "bucketInfo": {},
+      "bucketName": "BUCKET_NAME_3",
+      "bucketType": "allPrivate",
+      "corsRules": [
+        {
+          "allowedHeaders": [
+            "authorization",
+            "range"
+          ],
+          "allowedOperations": [
+            "b2_download_file_by_id",
+            "b2_download_file_by_name"
+          ],
+          "allowedOrigins": [
+            "https://mysite.com"
+          ],
+          "corsRuleName": "downloadFromThisOneOrigin",
+          "exposeHeaders": null,
+          "maxAgeSeconds": 3600
+        },
+        {
+          "allowedHeaders": [
+            "authorization",
+            "range"
+          ],
+          "allowedOperations": [
+            "s3_head",
+            "s3_get"
+          ],
+          "allowedOrigins": [
+            "https://mysite.com"
+          ],
+          "corsRuleName": "s3DownloadFromThisOneOrigin",
+          "exposeHeaders": null,
+          "maxAgeSeconds": 3600
+        }
+      ],
+      "defaultServerSideEncryption": {
+        "isClientAuthorizedToRead": true,
+        "value": {
+          "algorithm": null,
+          "mode": null
+        }
+      },
+      "fileLockConfiguration": {
+        "isClientAuthorizedToRead": true,
+        "value": {
+          "defaultRetention": {
+            "mode": null,
+            "period": null
+          },
+          "isFileLockEnabled": false
+        }
+      },
+      "lifecycleRules": [
+        {
+          "daysFromHidingToDeleting": 1,
+          "daysFromStartingToCancelingUnfinishedLargeFiles": null,
+          "daysFromUploadingToHiding": null,
+          "fileNamePrefix": ""
+        }
+      ],
+      "options": [
+        "s3"
+      ],
+      "replicationConfiguration": {
+        "isClientAuthorizedToRead": true,
+        "value": null
+      },
+      "revision": 5
+    }
+  ]
+}

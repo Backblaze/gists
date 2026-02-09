@@ -1,0 +1,34 @@
+{
+  "accountId": "YOUR_ACCOUNT_ID",
+  "bucketId": "YOUR_BUCKET_ID",
+  "bucketInfo": {},
+  "bucketName": "YOUR_BUCKET_NAME",
+  "bucketType": "allPrivate",
+  "corsRules": [],
+  "defaultServerSideEncryption": {
+    "isClientAuthorizedToRead": true,
+    "value": {
+      "algorithm": null,
+      "mode": null
+    }
+  },
+  "fileLockConfiguration": {
+    "isClientAuthorizedToRead": true,
+    "value": {
+      "defaultRetention": {
+        "mode": null,
+        "period": null
+      },
+      "isFileLockEnabled": true
+    }
+  },
+  "lifecycleRules": [],
+  "options": [
+    "s3"
+  ],
+  "replicationConfiguration": {
+    "isClientAuthorizedToRead": true,
+    "value": null
+  },
+  "revision": 2
+}
