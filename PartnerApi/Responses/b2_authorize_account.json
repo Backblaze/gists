@@ -1,0 +1,56 @@
+{
+  "accountId": "YOUR_ACCOUNT_ID",
+  "apiInfo": {
+    "backupApi": {
+      "backupApiUrl": "https://api000.backblazeb2.com"
+    },
+    "groupsApi": {
+      "groupsApiUrl": "https://api000.backblazeb2.com"
+    },
+    "storageApi": {
+      "absoluteMinimumPartSize": 5000000,
+      "allowed": {
+        "buckets": null,
+        "capabilities": [
+          "writeFileLegalHolds",
+          "deleteFiles",
+          "readBucketLifecycleRules",
+          "writeBucketLogging",
+          "readBucketRetentions",
+          "writeFiles",
+          "writeBucketReplications",
+          "readBucketEncryption",
+          "readBucketNotifications",
+          "writeKeys",
+          "deleteBuckets",
+          "listFiles",
+          "writeFileRetentions",
+          "shareFiles",
+          "readBuckets",
+          "writeBucketEncryption",
+          "writeBucketLifecycleRules",
+          "writeBucketNotifications",
+          "readBucketReplications",
+          "writeBuckets",
+          "readFileRetentions",
+          "listKeys",
+          "deleteKeys",
+          "readFiles",
+          "bypassGovernance",
+          "writeBucketRetentions",
+          "listAllBucketNames",
+          "readBucketLogging",
+          "listBuckets",
+          "readFileLegalHolds"
+        ],
+        "namePrefix": null
+      },
+      "apiUrl": "https://api000.backblazeb2.com",
+      "downloadUrl": "https://f000.backblazeb2.com",
+      "recommendedPartSize": 100000000,
+      "s3ApiUrl": "https://s3.us-west-000.backblazeb2.com"
+    }
+  },
+  "applicationKeyExpirationTimestamp": null,
+  "authorizationToken": "5_000-a8ba4420-f181-11f0-aad1-b5293aebac86_1768419963249_01c1c122_eOtOMv_1e.erI8GnEHn5Ccl4w6ae1xws64="
+}

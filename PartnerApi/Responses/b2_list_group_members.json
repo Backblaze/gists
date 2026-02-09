@@ -1,0 +1,22 @@
+{
+  "groupId": "YOUR_GROUP_ID",
+  "groupMembers": [
+    {
+      "accountId": "13cfc156072e",
+      "b2Stats": {
+        "b2BytesStoredCount": 0,
+        "b2FilesStoredCount": 0,
+        "b2StatsAsOfTimestamp": null,
+        "bucketCount": 0
+      },
+      "clusterNum": "000",
+      "email": "new-group-member@mycompany.com",
+      "groupId": "YOUR_GROUP_ID",
+      "groupName": "My Group",
+      "region": "us-west",
+      "s3Endpoint": "s3.us-west-000.backblazeb2.com"
+    }
+  ],
+  "groupName": "My Group",
+  "nextEmail": null
+}
